@@ -125,14 +125,18 @@ export function updateStats(today, labels, data) {
         }, 0);
 
         const timeDifference = totalTimeSpent - yesterdayTimeSpent;
-        const timePercentage = yesterdayTimeSpent ? ((timeDifference / yesterdayTimeSpent) * 100).toFixed(2) : 0;
+        const timePercentage = yesterdayTimeSpent ? ((timeDifference / yesterdayTimeSpent) * 100).toFixed(2) : 'N/A';
 
-        document.getElementById('timeSpentCard').querySelector('p').textContent = `${timePercentage >= 0 ? timePercentage + '% higher' : Math.abs(timePercentage) + '% lower'} than yesterday`;
+        document.getElementById('timeSpentCard').querySelector('p').textContent = yesterdayTimeSpent ? 
+            `${timePercentage >= 0 ? timePercentage + '% higher' : Math.abs(timePercentage) + '% lower'} than yesterday` : 
+            'No data for yesterday';
 
         const yesterdaySitesVisited = Object.keys(yesterdayData).length;
         const siteDifference = totalSitesVisited - yesterdaySitesVisited;
 
-        document.getElementById('siteVisitedCard').querySelector('p').textContent = siteDifference === 0 ? 'same as yesterday' : `${siteDifference > 0 ? siteDifference + ' more' : Math.abs(siteDifference) + ' less'} than yesterday`;
+        document.getElementById('siteVisitedCard').querySelector('p').textContent = yesterdaySitesVisited ? 
+            (siteDifference === 0 ? 'same as yesterday' : `${siteDifference > 0 ? siteDifference + ' more' : Math.abs(siteDifference) + ' less'} than yesterday`) : 
+            'No data for yesterday';
     });
 }
 
