@@ -12,6 +12,35 @@ document.querySelectorAll('.nav-btn').forEach(button => {
     });
 });
 
+// Ensure the initial active section is displayed correctly
+document.addEventListener('DOMContentLoaded', () => {
+    const activeButton = document.querySelector('.nav-btn.active');
+    if (activeButton) {
+        const sectionId = activeButton.dataset.section + '-section';
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+});
+
+// Export Data
+document.getElementById('export-data').addEventListener('click', async () => {
+    const { exportData } = await import('../settings/data.js');
+    exportData();
+});
+
+// Import Data
+document.getElementById('import-data').addEventListener('click', async () => {
+    const { importData } = await import('../settings/data.js');
+    importData();
+});
+
+// Clear Data
+document.getElementById('clear-data').addEventListener('click', async () => {
+    if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+        const { clearData } = await import('../settings/data.js');
+        clearData();
+    }
+});
+
 // Date Navigation
 const currentDateElement = document.getElementById('current-date');
 const currentWeekElement = document.getElementById('current-week');
